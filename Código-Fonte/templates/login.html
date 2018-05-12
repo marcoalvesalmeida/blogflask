@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Parte da Mensagem do login em Flash -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-warning">
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+{% endwith %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <form action="" method="post">
+        {{ form.csrf_token }}
+        <div class="form-group">
+          <label for="email">Email:</label> {{form.email(class="form-control", placeholder="Digite seu email", id="email")}}
+        </div>
+        <div class="form-group">
+          <label for="senha">Senha:</label> {{form.senha(class="form-control", id="senha")}}
+        </div>
+        <div class="checkbox">
+          <label for="lembre_me">
+        {{form.lembre_me}} Lembre-se de mim
+      </label>
+        </div>
+        {% if form.errors.email %}
+          <div class="alert alert-danger" role="alert">É obrigatório preencher o campo "email"!</div>
+        {% endif %}
+        {% if form.errors.senha %}
+          <div class="alert alert-danger" role="alert">É obrigatório preencher o campo "senha"!</div>
+        {% endif %}
+        {% if not(form.errors) %}
+          <div class="alert alert-success" role="alert">Aparentemente tudo certo!</div>
+        {% endif %}
+        <button type="button" name="btnentrar" id="btnentrar" class="btn btn-info">Entrar</button>
+        <button type="reset" name="btnresetar" id="btnresetar" class="btn btn-danger">Limpar</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
